@@ -25,7 +25,7 @@ namespace waibibaboWinForms
 
         private void DecodeButton_Click(object sender, EventArgs e)
         {
-            if (!SourceTextBox.Text.EndsWith("卜"))
+            if (!SourceTextBox.Text.EndsWith("卜")&&SourceTextBox.Text.Length!=0)
             {
                 MessageBox.Show("密文不对的说", "警告", MessageBoxButtons.OK);
                 return;

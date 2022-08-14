@@ -10,35 +10,23 @@ namespace waibibaboWinForms
     {
         public static string DecodeText(string encodedText)
         {
-            if (!encodedText.EndsWith("卜"))
+            StringBuilder finalText = new StringBuilder();
+            string[] chars = encodedText.Split('卜');
+            foreach (string item in chars)
             {
-                return "密文不对的说";
-            }
-            HashSet<char> waiBiBaBo = new HashSet<char>() { '歪', '比', '吧', '卜' };
-            if (encodedText.ToHashSet().IsSubsetOf(waiBiBaBo))
-            {
-                StringBuilder finalText = new StringBuilder();
-                string[] chars = encodedText.Split('卜');
-                foreach (string item in chars)
+                int finalChar = 0;
+                for (int i = 0; i < item.Length; i++)
                 {
-                    int finalChar = 0;
-                    for (int i = 0; i < item.Length; i++)
+                    switch (item[i])
                     {
-                        switch (item[i])
-                        {
-                            case '歪': break;
-                            case '比': finalChar += (int)Math.Pow(3, item.Length - i - 1); break;
-                            case '吧': finalChar += 2 * (int)Math.Pow(3, item.Length - i - 1); break;
-                        }
+                        case '歪': break;
+                        case '比': finalChar += (int)Math.Pow(3, item.Length - i - 1); break;
+                        case '吧': finalChar += 2 * (int)Math.Pow(3, item.Length - i - 1); break;
                     }
-                    finalText.Append((char)finalChar);
                 }
-                return finalText.ToString();
+                finalText.Append((char)finalChar);
             }
-            else
-            {
-                return "密文不对的说";
-            }
+            return finalText.ToString();
         }
     }
 }
